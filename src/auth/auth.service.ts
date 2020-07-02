@@ -28,10 +28,13 @@ export class AuthService {
 
   async login(user: any) {
     const payload = { username: user.username, sub: Math.round(Math.random() * 100000)};
-    return {
+    const token = {
       access_token: this.jwtService.sign(payload, {
         expiresIn: new Date(new Date().valueOf() + (120 * 60 * 1000)).valueOf()
       }),
     };
+    console.log('Token', token);
+
+    return token;
   }
 }
