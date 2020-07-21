@@ -62,11 +62,12 @@ export class AppService {
           .layout__placeholder-inner {
             line-height: 1;
             overflow: hidden;
-            font-size: calc(100vw / 4.7);
+            font-size: calc(100vw / 5.7);
+            margin-left: -.06em;
             margin-bottom: -.17em;
             font-weight: bold;
-            background: -webkit-gradient(linear,left top,right top,from(#00fff7),color-stop(25%,#99ffa1),to(#00fff7));
-            background: linear-gradient(to top right,#00fff7 0,#99ffa1 25%,#00fff7 50%);
+            background: -webkit-gradient(linear,left top,right top,from(#4c4a4a),color-stop(25%,#000000),to(#4c4c4c));
+            background: linear-gradient(to top right,#4c4a4a 0,#000000 25%,#4c4c4c 50%);
             background-clip: border-box;
             background-size: 200% auto;
             text-fill-color: transparent;
@@ -75,12 +76,13 @@ export class AppService {
           }
           .form-group {
             margin-bottom: 15px;
+            padding-top: 5px;
           }
         </style>
       </head>
       <body>
         <div class="layout__placeholder">
-          <div class="layout__placeholder-inner">Web3Tech</div>
+          <div class="layout__placeholder-inner">MadBrothers</div>
         </div>
         <div class="layout">
         

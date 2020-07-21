@@ -34,8 +34,6 @@ export class AuthService {
         expiresIn: new Date(new Date().valueOf() + 120 * 60 * 1000).valueOf(),
       }),
     };
-    console.log('Token', token);
-
     return token;
   }
 }
