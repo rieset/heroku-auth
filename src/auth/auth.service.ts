@@ -9,12 +9,15 @@ export class AuthService {
 
   async validateUser(username: string, pass: string): Promise<any> {
     const status = await fetch(jwtConstants.basikValidator, {
-      method: 'get',
+      method: 'post',
       headers: {
         'Content-Type': 'application/json',
-        Authorization:
-          'Basic ' + Buffer.from('' + username + ':' + pass).toString('base64'),
       },
+      body: JSON.stringify({
+        grant_type: 'password',
+        username: username,
+        password: pass,
+      }),
     }).then(res => res.status);
 
     if (status === 200) {
