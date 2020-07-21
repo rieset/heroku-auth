@@ -19,18 +19,20 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
       method: 'get',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Basic ' +  (Buffer.from('' + username + ":" + password).toString('base64'))
-      }
+        Authorization:
+          'Basic ' +
+          Buffer.from('' + username + ':' + password).toString('base64'),
+      },
     })
-    .then((res) => {
-      return res.status
-    })
-    .catch((e) => {
-      throw new UnauthorizedException();
-    });
+      .then(res => {
+        return res.status;
+      })
+      .catch(e => {
+        throw new UnauthorizedException();
+      });
 
     if (status === 200) {
-      return { username: username }
+      return { username: username };
     }
 
     throw new UnauthorizedException();

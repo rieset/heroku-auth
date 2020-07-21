@@ -7,7 +7,9 @@ import { jwtConstants } from './constants';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super({
-      jwtFromRequest: ExtractJwt.fromHeader(jwtConstants.tokenName.toLowerCase()),
+      jwtFromRequest: ExtractJwt.fromHeader(
+        jwtConstants.tokenName.toLowerCase(),
+      ),
       ignoreExpiration: false,
       secretOrKey: jwtConstants.secret,
     });

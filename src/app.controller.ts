@@ -1,25 +1,16 @@
-import {
-  Controller,
-  Get,
-  Post,
-  UseGuards,
-  Request,
-  Param,
-  Body,
-  HttpCode,
-} from '@nestjs/common';
+import { Controller, Get, UseGuards, Request, Param } from '@nestjs/common';
 import { AppService } from './app.service';
-import {JwtAuthGuard} from './auth/jwt.auth.guard';
-import {LocalAuthGuard} from './auth/local-auth.guard';
+import { JwtAuthGuard } from './auth/jwt.auth.guard';
+import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AuthService } from './auth/auth.service';
 
-const key = 'ext_auth_' + Math.round((Math.random() * 100000) + 99999);
+const key = 'ext_auth_' + Math.round(Math.random() * 100000 + 99999);
 
 @Controller()
 export class AppController {
   constructor(
-      private readonly appService: AppService,
-      private readonly authService: AuthService
+    private readonly appService: AppService,
+    private readonly authService: AuthService,
   ) {}
 
   @UseGuards(LocalAuthGuard)
