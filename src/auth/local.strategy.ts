@@ -31,6 +31,8 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
       })
       .then(response => response.json())
       .then(async res => {
+        console.log('RES', res);
+
         if (res.error) {
           return 403;
         }
@@ -49,6 +51,8 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
           })
           .then(response => response.json())
           .then(async res => {
+            console.log('MEMBERS', res);
+
             return res && res instanceof Array
               ? res.find(user => user.username === username)
               : null;
