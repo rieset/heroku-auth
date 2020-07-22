@@ -15,24 +15,49 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
       throw new UnauthorizedException();
     }
 
-    const status = await fetch(jwtConstants.basikValidator, {
-      method: 'get',
+    const user = await fetch(jwtConstants.basicValidator, {
+      method: 'post',
       headers: {
         'Content-Type': 'application/json',
-        Authorization:
-          'Basic ' +
-          Buffer.from('' + username + ':' + password).toString('base64'),
       },
+      body: JSON.stringify({
+        grant_type: 'password',
+        username: username,
+        password: password,
+      }),
     })
-      .then(res => {
-        return res.status;
-      })
       .catch(e => {
         throw new UnauthorizedException();
+      })
+      .then(response => response.json())
+      .then(async res => {
+        if (res.error) {
+          return 403;
+        }
+
+        return await fetch(
+          jwtConstants.API + '?access_token=' + res.access_token,
+          {
+            method: 'get',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        )
+          .catch(e => {
+            throw new UnauthorizedException();
+          })
+          .then(response => response.json())
+          .then(async res => {
+            return res && res instanceof Array
+              ? res.find(user => user.username === username)
+              : null;
+          });
       });
 
-    if (status === 200) {
-      return { username: username };
+    if (!!user && user.username) {
+      console.log('Access user', user);
+      return user;
     }
 
     throw new UnauthorizedException();
