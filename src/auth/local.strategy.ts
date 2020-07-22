@@ -27,6 +27,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
       }),
     })
       .catch(e => {
+        console.log('Error', e);
         throw new UnauthorizedException();
       })
       .then(response => response.json())

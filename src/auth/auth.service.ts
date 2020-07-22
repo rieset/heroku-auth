@@ -20,6 +20,8 @@ export class AuthService {
       }),
     }).then(res => res.status);
 
+    console.log('STATUS', status);
+
     if (status === 200) {
       return { success: true };
     }
