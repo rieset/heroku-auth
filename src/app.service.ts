@@ -85,8 +85,7 @@ export class AppService {
           <div class="layout__placeholder-inner">MadBrothers</div>
         </div>
         <div class="layout">
-        
-          <form class="layout__form" action="${key}/login" method="get">
+          <form class="layout__form" action="/" method="post">
             <div class="form-group">
               <input type="text" name="username" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Enter username">
             </div>

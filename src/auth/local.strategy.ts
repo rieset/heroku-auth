@@ -11,8 +11,15 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(username: string, password: string): Promise<any> {
-    if (username === '' || password === '') {
-      throw new UnauthorizedException();
+    if (
+      !!jwtConstants.DEFAULT_USERNAME &&
+      !!jwtConstants.DEFAULT_PASSWORD &&
+      jwtConstants.DEFAULT_USERNAME === username &&
+      jwtConstants.DEFAULT_PASSWORD === password
+    ) {
+      return {
+        username: 'default',
+      };
     }
 
     const user = await fetch(jwtConstants.basicValidator, {

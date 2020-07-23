@@ -5,6 +5,7 @@ import {
   Request,
   Param,
   Post,
+  All,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { JwtAuthGuard } from './auth/jwt.auth.guard';
@@ -20,6 +21,7 @@ export class AppController {
     private readonly authService: AuthService,
   ) {}
 
+  // Deprecated
   @UseGuards(LocalAuthGuard)
   @Get(':key/login')
   async loginTest(@Param() params, @Request() req) {
@@ -27,9 +29,13 @@ export class AppController {
   }
 
   @UseGuards(LocalAuthGuard)
-  @Post(':key/login')
-  async login(@Param() params, @Request() req) {
-    return await this.authService.login(req.user);
+  @Post('login')
+  async login(@Request() req) {
+    return await new Promise(resolve => {
+      setTimeout(() => {
+        resolve(this.authService.login(req.user));
+      }, 5000);
+    });
   }
 
   @UseGuards(JwtAuthGuard)
@@ -41,5 +47,12 @@ export class AppController {
   @Get('/')
   getLoginPage(): string {
     return this.appService.getLoginPage(key);
+  }
+
+  @All('*')
+  findAll(@Request() req): any {
+    return {
+      status: false,
+    };
   }
 }
