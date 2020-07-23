@@ -1,4 +1,11 @@
-import { Controller, Get, UseGuards, Request, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  UseGuards,
+  Request,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { AppService } from './app.service';
 import { JwtAuthGuard } from './auth/jwt.auth.guard';
 import { LocalAuthGuard } from './auth/local-auth.guard';
@@ -16,17 +23,27 @@ export class AppController {
   @UseGuards(LocalAuthGuard)
   @Get(':key/login')
   async loginTest(@Param() params, @Request() req) {
+    console.log('Login test');
+    return await this.authService.login(req.user);
+  }
+
+  @UseGuards(LocalAuthGuard)
+  @Post(':key/login')
+  async login(@Param() params, @Request() req) {
+    console.log('Login test', req.body);
     return await this.authService.login(req.user);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('check')
   getProfile(@Request() req) {
+    console.log('Check');
     return req.user;
   }
 
   @Get('/')
   getLoginPage(): string {
+    console.log('Login page', key);
     return this.appService.getLoginPage(key);
   }
 }

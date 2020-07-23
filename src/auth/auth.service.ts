@@ -8,6 +8,8 @@ export class AuthService {
   constructor(private readonly jwtService: JwtService) {}
 
   async validateUser(username: string, pass: string): Promise<any> {
+    console.log('Validate User', username);
+
     const status = await fetch(jwtConstants.basicValidator, {
       method: 'post',
       headers: {

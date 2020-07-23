@@ -11,7 +11,10 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(username: string, password: string): Promise<any> {
+    console.log('Validate', username);
+
     if (username === '' || password === '') {
+      console.log('Username and password not found');
       throw new UnauthorizedException();
     }
 
@@ -26,13 +29,13 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
         password: password,
       }),
     })
-      .catch(e => {
-        console.log('Error', e);
-        throw new UnauthorizedException();
-      })
       .then(data => {
         console.log('RAW DATA', data.status, data);
         return data;
+      })
+      .catch(e => {
+        console.log('Error', e);
+        throw new UnauthorizedException();
       })
       .then(response => response.json())
       .then(async res => {
@@ -51,7 +54,12 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
             },
           },
         )
+          .then(data => {
+            console.log('RAW DATA API', data.status, data);
+            return data;
+          })
           .catch(e => {
+            console.log('Error request api members', e);
             throw new UnauthorizedException();
           })
           .then(response => response.json())
@@ -64,7 +72,9 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
           });
       });
 
-    if (!!user && user.username) {
+    console.log('User find', user);
+
+    if (!!user && !!user.username) {
       console.log('Access user', user);
       return user;
     }
