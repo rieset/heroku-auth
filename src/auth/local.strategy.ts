@@ -30,6 +30,10 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
         console.log('Error', e);
         throw new UnauthorizedException();
       })
+      .then(data => {
+        console.log('RAW DATA', data.status, data);
+        return data;
+      })
       .then(response => response.json())
       .then(async res => {
         console.log('RES', res);

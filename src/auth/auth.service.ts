@@ -19,7 +19,6 @@ export class AuthService {
         password: pass,
       }),
     }).then(res => res.status);
-
     console.log('STATUS', status);
 
     if (status === 200) {
