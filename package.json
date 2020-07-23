@@ -13,7 +13,7 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
+    "start": "nest start --debug",
     "start:dev": "BASIC_AUTH_VALIDATOR=https://gitlab.com/oauth/token API_FOR_ACCESS_TEST=https://gitlab.com/api/v4/projects/12480981/members nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
