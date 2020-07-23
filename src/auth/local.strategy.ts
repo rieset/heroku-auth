@@ -8,6 +8,8 @@ import fetch from 'node-fetch';
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super();
+
+    console.log('LocalStrategy');
   }
 
   async validate(username: string, password: string): Promise<any> {
