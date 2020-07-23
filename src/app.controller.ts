@@ -30,7 +30,7 @@ export class AppController {
   @UseGuards(LocalAuthGuard)
   @Post(':key/login')
   async login(@Param() params, @Request() req) {
-    console.log('Login test', req.body);
+    console.log('Login test post', req.body);
     return await this.authService.login(req.user);
   }
 
@@ -45,5 +45,12 @@ export class AppController {
   getLoginPage(): string {
     console.log('Login page', key);
     return this.appService.getLoginPage(key);
+  }
+
+  @Get('*')
+  error(@Request() req) {
+    console.log('Error', req.url);
+    return '';
+    // return await this.authService.login(req.user);
   }
 }
