@@ -63,7 +63,7 @@ export class AppService {
             line-height: 1;
             overflow: hidden;
             font-size: calc(100vw / 5.7);
-            margin-left: -.065em;
+            margin-left: -.07em;
             margin-bottom: -.22em;
             font-weight: bold;
             background: -webkit-gradient(linear,left top,right top,from(#4c4a4a),color-stop(25%,#000000),to(#4c4c4c));

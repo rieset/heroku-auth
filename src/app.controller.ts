@@ -23,34 +23,23 @@ export class AppController {
   @UseGuards(LocalAuthGuard)
   @Get(':key/login')
   async loginTest(@Param() params, @Request() req) {
-    console.log('Login test');
     return await this.authService.login(req.user);
   }
 
   @UseGuards(LocalAuthGuard)
   @Post(':key/login')
   async login(@Param() params, @Request() req) {
-    console.log('Login test post', req.body);
     return await this.authService.login(req.user);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('check')
   getProfile(@Request() req) {
-    console.log('Check');
     return req.user;
   }
 
   @Get('/')
   getLoginPage(): string {
-    console.log('Login page', key);
     return this.appService.getLoginPage(key);
-  }
-
-  @Get('*')
-  error(@Request() req) {
-    console.log('Error', req.url);
-    return '';
-    // return await this.authService.login(req.user);
   }
 }

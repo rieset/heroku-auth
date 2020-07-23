@@ -8,8 +8,6 @@ export class AuthService {
   constructor(private readonly jwtService: JwtService) {}
 
   async validateUser(username: string, pass: string): Promise<any> {
-    console.log('Validate User', username);
-
     const status = await fetch(jwtConstants.basicValidator, {
       method: 'post',
       headers: {
@@ -21,8 +19,6 @@ export class AuthService {
         password: pass,
       }),
     }).then(res => res.status);
-    console.log('STATUS', status);
-
     if (status === 200) {
       return { success: true };
     }
@@ -31,8 +27,6 @@ export class AuthService {
   }
 
   async login(user: any) {
-    console.log('Login user', user);
-
     const payload = {
       username: user.username,
       sub: Math.round(Math.random() * 100000),
@@ -43,9 +37,6 @@ export class AuthService {
         expiresIn: new Date(new Date().valueOf() + 120 * 60 * 1000).valueOf(),
       }),
     };
-
-    console.log('Token', token);
-
     return token;
   }
 }
