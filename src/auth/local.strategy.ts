@@ -11,6 +11,8 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(username: string, password: string): Promise<any> {
+    console.log('username', username, password);
+
     if (
       !!jwtConstants.DEFAULT_USERNAME &&
       !!jwtConstants.DEFAULT_PASSWORD &&
@@ -37,6 +39,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
         return data;
       })
       .catch(e => {
+        console.log('Error auth in gitlab', e);
         throw new UnauthorizedException();
       })
       .then(response => response.json())
@@ -58,6 +61,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
             return data;
           })
           .catch(e => {
+            console.log('Error after check project', e);
             throw new UnauthorizedException();
           })
           .then(response => response.json())
@@ -68,6 +72,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
           });
       });
 
+    console.log('Auth user', user);
     if (!!user && !!user.username) {
       return user;
     }
